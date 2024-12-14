@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register form</title>
+  <link rel="stylesheet" href="regist.css">
+</head>
+<body>
+  <section>
+      <div class="register-form">
+        <form id="registerForm">
+          <h2>Register</h2>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+            <input type="text" id="regName" required>
+            <label>Name</label>
+          </div>
+            <div class="input-box">
+              <span class="icon"><ion-icon name="mail-outline"></ion-icon> </span>
+              <input type="email" id="regEmail">
+              <label> Email</label>
+              <p id="emailError" style="color: red; font-size: 0.8rem; display: none;">
+                Please enter a valid email address.
+              </p>
+      
+            </div>
+            <div class="input-box">
+              <span class="icon"> <ion-icon name="lock-closed-outline"></ion-icon></span>
+              <input type="password" id="regPassword" required>
+              <label>Password</label>
+            </div>
+            
+            <div class="condition">
+              <label> <input type="checkbox" id="termsCheckbox">I agree to the terms and condition</label>
+              <p id="checkboxError" style="color: red; font-size: 0.8rem; display: none;">
+                Please accept the terms and conditions.
+              </p>
+             
+            </div>
+            <button type="submit" id="registerBtn">Register</button>
+            <div class="login-link">
+              <p>already have an  account? <a href="login.html">Login</a></p>
+            </div>
+        </form>
+      </div>
+    </section>
+
+
+    <script>
+      // Select the form elements
+      const email = document.getElementById("regEmail");
+    const emailError = document.getElementById("emailError");
+const checkbox = document.getElementById('termsCheckbox');
+const errorMessage = document.getElementById('checkboxError');
+const registerButton = document.getElementById('registerBtn');
+
+ // Email validation
+ email.addEventListener("input", () => {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        emailError.style.display = "block";
+      } else {
+        emailError.style.display = "none";
+      }
+    });
+ 
+
+// Add event listener to the button
+registerButton.addEventListener('click', (e) => {
+  // Prevent form submission if checkbox is not checked
+  if (!checkbox.checked) {
+    e.preventDefault(); // Prevent form submission
+    errorMessage.style.display = 'block'; // Show the error message
+  } else {
+    errorMessage.style.display = 'none'; // Hide the error message
+  }
+
+     // Check if the email is valid
+     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        e.preventDefault();
+        emailError.style.display = "block";
+      }
+   
+});
+
+      const registerForm = document.getElementById("registerForm");
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("regName").value;
+        const email = document.getElementById("regEmail").value;
+        const password = document.getElementById("regPassword").value;
+    
+        // Save to localStorage
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPassword", password);
+    
+        alert("Registration successful!");
+        window.location.href = "login.html"; // Redirect to login page
+      });
+    </script>
+
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
